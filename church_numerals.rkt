@@ -2,9 +2,15 @@
 
 (define id (lambda (x) x))
 
-(define succ (lambda (n) (lambda (f x) (f (n f x)))))
+(define succ
+  (lambda (n)
+    (lambda (f)
+      (lambda (x)
+        (f ((n f) x))))))
 
-(define zero (lambda (f x) x))
+(define zero
+  (lambda (f)
+    (lambda (x) x)))
 (define one (succ zero))
 (define two (succ one))
 (define three (succ two))
@@ -12,21 +18,24 @@
 (define five (succ four))
 
 (define plus
-  (lambda (m n)
-      (lambda(f x) (m f (n f x)))))
+  (lambda (m)
+    (lambda (n)
+      ((m succ) n))))
 
 (define mul
-  (lambda (m n)
-      (lambda (f) (m (n f)))))
+  (lambda (m)
+    (lambda (n)
+      ((m (plus n)) zero))))
 
 (define pwd
-  (lambda (m n)
-    (n m)))
+  (lambda (m)
+    (lambda (n)
+    (n m))))
 
 (define (->nat churchnum)
-  (churchnum add1 0))
+  ((churchnum add1) 0))
 
 (define (nat-> int)
   (if (= int 0)
-      (lambda (f x) x)
+      zero
       (succ (nat-> (- int 1)))))
