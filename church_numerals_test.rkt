@@ -27,3 +27,11 @@
                       (succ zero)))
               5
               "if (#f | #t) 0 0.succ")
+
+(check-equal? (->nat (ccar ((ccon (nat-> 2)) (nat-> 5)))) 2 "(car (cons 2 5))")
+(check-equal? (->nat (ccar
+                      (ccdr
+                       ((ccon (nat-> 2))
+                        ((ccon (nat-> 3)) (nat-> 1))))))
+              3
+              "(car (cdr (cons 2 (cons 3 1))))")

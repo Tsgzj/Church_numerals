@@ -91,6 +91,20 @@
 (define (->bool bool)
   ((bool #t) #f))
 
+;; list definition
+(define ccon
+  (lambda (x)
+    (lambda (y)
+      (lambda (s) ((s x) y)))))
+
+(define ccar
+  (lambda (s)
+    (s true)))
+
+(define ccdr
+  (lambda (s)
+    (s false)))
+
 (provide zero
          succ
          plus
@@ -101,6 +115,9 @@
          aand
          oor
          iif
+         ccon
+         ccar
+         ccdr
          ->bool
          ->nat
          nat->)
