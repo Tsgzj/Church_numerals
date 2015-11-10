@@ -1,9 +1,11 @@
 #lang racket
 
+;; define zero
 (define zero
   (lambda (f)
     (lambda (x) x)))
 
+;; successor of n => (lambda (n)  (lambda (f x) (f (n f x))))
 (define succ
   (lambda (n)
     (lambda (f)
@@ -50,3 +52,41 @@
   (if (= int 0)
       zero
       (succ (nat-> (- int 1)))))
+
+;; define #t and #f
+;; accorfing to the iif we will define later
+;; true
+(define true
+  (lambda (x) (lambda (y) x)))
+
+;; false
+(define false
+  (lambda (x) (lambda (y) y)))
+
+;; if => (lambda (condition true else)
+;;             (condition true else))
+(define iif
+  (lambda (c)
+    (lambda (t)
+      (lambda (e)
+        ((c t) e)))))
+
+;; or => (lambda (a b)
+;;             (if a true b))
+(define oor
+  (lambda (a)
+    (lambda (b)
+      (((iif a) true) b))))
+
+
+;; and => (lambda (a b)
+;;            (if a b false))
+(define aand
+  (lambda (a)
+    (lambda (b)
+      ((a b) false))))
+
+;; convert church encoded bool into racket bool
+;; ->bool => (lambda (b) (b #t #f))
+(define (->bool bool)
+  ((bool #t) #f))
