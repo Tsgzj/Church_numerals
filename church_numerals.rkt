@@ -92,7 +92,7 @@
   ((bool #t) #f))
 
 ;; list definition
-(define ccon
+(define ccons
   (lambda (x)
     (lambda (y)
       (lambda (s) ((s x) y)))))
@@ -115,7 +115,7 @@
          aand
          oor
          iif
-         ccon
+         ccons
          ccar
          ccdr
          ->bool
