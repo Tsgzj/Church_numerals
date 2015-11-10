@@ -90,3 +90,12 @@
 ;; ->bool => (lambda (b) (b #t #f))
 (define (->bool bool)
   ((bool #t) #f))
+
+(->bool ((aand true) true)) ;; => #t
+(->bool ((aand true) false)) ;; => #f
+(->bool ((aand false) true)) ;; => #f
+(->bool ((aand false) false)) ;; => #f
+(->bool ((oor true) true)) ;; => #t
+(->bool ((oor true) false)) ;; => #t
+(->bool ((oor false) true)) ;; => #t
+(->bool ((oor false) false)) ;; => #f
