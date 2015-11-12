@@ -71,13 +71,17 @@
       (lambda (e)
         ((c t) e)))))
 
+;; not => (lambda (a) (a #f #t))
+(define not
+  (lambda (a)
+    ((a false) true)))
+
 ;; or => (lambda (a b)
 ;;             (if a true b))
 (define oor
   (lambda (a)
     (lambda (b)
       (((iif a) true) b))))
-
 
 ;; and => (lambda (a b)
 ;;            (if a b false))
@@ -104,6 +108,19 @@
 (define ccdr
   (lambda (s)
     (s false)))
+
+(define NULL
+  (lambda (x)
+    true))
+
+;; NULL? => (lambda(x)
+;;             (x (lambda (x y) false)))
+(define NULL?
+  (lambda (x)
+    (x
+     (lambda(x)
+       (lambda(y)
+         false)))))
 
 (provide zero
          succ
